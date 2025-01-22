@@ -1,9 +1,21 @@
 import React from 'react'
 import styles from "./authLinks.module.css"
+import Link from 'next/link'
+
 const AuthLinks = () => {
-  return (
-    <div className={styles.container}>authLinks</div>
-  )
+  const status: boolean = true;
+  return <>
+    {status ?
+        <>
+          <Link href="/write">Write</Link>
+          <span className={styles.link}>Logout</span>
+        </>
+        :
+      <>
+      <Link href="/login">Login</Link>
+    </> 
+    }
+  </>
 }
 
 export default AuthLinks
