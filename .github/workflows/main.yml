@@ -1,6 +1,7 @@
 name: Build and Deploy Next.js
 
 on:
+  workflow_dispatch: # Allows manual triggering of the workflow
   pull_request:
     branches:
       - master
@@ -59,6 +60,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./out # Ensure this matches your build output directory
           publish_branch: gh-pages
           keep_files: false
