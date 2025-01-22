@@ -12,14 +12,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 20
 
@@ -30,10 +30,10 @@ jobs:
       run: npm run build
 
     - name: List all files (optional)
-      run: ls -R ./  # Lists files in the output folder after build
+      run: ls -R ./out  # Lists files in the output folder after build
 
     - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nextjs-build
         path: ./out # Replace with your build directory
@@ -43,19 +43,19 @@ jobs:
     if: github.ref == 'refs/heads/master'  # Deploy only on pushes to the master branch
     needs: build
     runs-on: ubuntu-latest
-
+      
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-        
-    - name: Download Build Artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: nextjs-build
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GH_TOKEN }}
-        publish_dir: ./out
-        keep_files: false
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+              
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: nextjs-build
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./out
+          keep_files: false
