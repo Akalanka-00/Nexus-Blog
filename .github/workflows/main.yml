@@ -12,14 +12,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 20
 
@@ -30,42 +30,28 @@ jobs:
       run: npm run build
 
     - name: List all files (optional)
-      run: ls -R ./out  # Lists files in the output folder after build
+      run: ls -R ./  # Lists files in the output folder after build
 
     - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nextjs-build
         path: ./out # Replace with your build directory
         retention-days: 14
 
   deploy:
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'  # Deploy only on pushes to the master branch
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
         
     - name: Download Build Artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: nextjs-build
-    
-    - name: Determine Deployment Branch and URL
-      id: deployment-info
-      run: |
-          if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
-            echo "branch=gh-pages" >> $GITHUB_ENV
-            echo "url=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV
-          elif [[ "${{ github.ref }}" == "refs/heads/development" ]]; then
-            echo "branch=gh-pages-dev" >> $GITHUB_ENV
-            echo "url=https://${{ github.repository_owner }}.github.io/gh-pages-dev/${{ github.event.repository.name }}" >> $GITHUB_ENV
-          else
-            echo "Invalid branch for deployment. Aborting."
-            exit 1
-          fi
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
@@ -73,8 +59,3 @@ jobs:
         github_token: ${{ secrets.GH_TOKEN }}
         publish_dir: ./out
         keep_files: false
-        publish_branch: ${{ env.branch }}
-
-    - name: Deployed URL
-      run: |
-          echo "Deployed URL: ${{ env.url }}"
