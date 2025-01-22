@@ -53,8 +53,8 @@ jobs:
           name: nextjs-build
       
       - name: List all files (optional)
-        run: ls -R ./out  # Lists files in the output folder after build
-        
+        run: ls -R ./  # Lists files in the output folder after build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
