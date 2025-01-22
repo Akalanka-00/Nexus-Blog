@@ -3,12 +3,11 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
+  basePath: "/Nexus-Blog", // Replace with your repository name
+  assetPrefix: "/Nexus-Blog", // Replace with your repository name
   images: {
     unoptimized: true,
   },
-  // Add basePath and assetPrefix for GitHub Pages deployment
-  basePath: "/Nexus-Blog", // Matches your repository name
-  assetPrefix: "/Nexus-Blog", // Ensures assets are correctly loaded from the subpath
 };
 
 export default nextConfig;
