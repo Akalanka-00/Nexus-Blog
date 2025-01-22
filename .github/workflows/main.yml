@@ -30,13 +30,13 @@ jobs:
       run: npm run build
 
     - name: List all files (optional)
-      run: ls -R ./out  # Lists files in the output folder after build
+      run: ls -R ./  # Lists files in the output folder after build
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: nextjs-build
-        path: ./ # Replace with your build directory
+        path: ./out # Replace with your build directory
         retention-days: 14
 
   deploy:
