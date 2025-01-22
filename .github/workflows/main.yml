@@ -1,6 +1,7 @@
 name: Build and Deploy Next.js
 
 on:
+  workflow_dispatch: # Allows manual triggering of the workflow
   pull_request:
     branches:
       - master
@@ -40,22 +41,25 @@ jobs:
         retention-days: 14
 
   deploy:
-    if: github.ref == 'refs/heads/master'  # Deploy only on pushes to the master branch
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
       
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
               
       - name: Download Build Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: nextjs-build
       
+      - name: List all files (optional)
+        run: ls -R ./  # Lists files in the output folder after build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./out
+          publish_dir: ./out # Ensure this matches your build output directory
+          publish_branch: gh-pages
           keep_files: false
