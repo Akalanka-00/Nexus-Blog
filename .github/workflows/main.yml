@@ -1,0 +1,61 @@
+name: Build and Deploy Next.js
+
+on:
+  pull_request:
+    branches:
+      - master
+      - development
+  push:
+    branches:
+      - master
+      - development
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Project
+      run: npm run build
+
+    - name: List all files (optional)
+      run: ls -R ./  # Lists files in the output folder after build
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: nextjs-build
+        path: ./out # Replace with your build directory
+        retention-days: 14
+
+  deploy:
+    if: github.ref == 'refs/heads/master'  # Deploy only on pushes to the master branch
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+        
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: nextjs-build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GH_TOKEN }}
+        publish_dir: ./out
+        keep_files: false
