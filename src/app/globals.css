@@ -43,8 +43,6 @@ a {
   min-height: 100vh;
   background-color: var(--bg);
   color: var(--textColor);
-  padding: 0 1rem;
-
 }
 
 .wrapper {
