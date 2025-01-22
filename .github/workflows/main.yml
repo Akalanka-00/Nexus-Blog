@@ -36,7 +36,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: nextjs-build
-        path: ./out # Replace with your build directory
+        path: ./ # Replace with your build directory
         retention-days: 14
 
   deploy:
