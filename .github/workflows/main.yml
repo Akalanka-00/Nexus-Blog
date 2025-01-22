@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
       uses: actions/setup-node@v3
@@ -34,7 +34,7 @@ jobs:
       with:
         name: nextjs-build
         path: ./.next # Replace with your build directory
-        retention-days: 14
+        expire-in: 14d
 
   deploy:
     if: github.ref == 'refs/heads/master'  # Deploy only on pushes to the master branch
@@ -48,7 +48,7 @@ jobs:
         name: nextjs-build
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GH_TOKEN }}
         publish_dir: ./.next
