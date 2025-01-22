@@ -30,7 +30,7 @@ jobs:
       run: npm run build
 
     - name: List all files (optional)
-      run: ls -R ./  # Lists files in the output folder after build
+      run: ls -R ./out  # Lists files in the output folder after build
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
@@ -40,22 +40,22 @@ jobs:
         retention-days: 14
 
   deploy:
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'  # Deploy only on pushes to the master branch
+    if: github.ref == 'refs/heads/master'  # Deploy only on pushes to the master branch
     needs: build
-    runs-on: ubuntu-22.04
-
+    runs-on: ubuntu-latest
+      
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-        
-    - name: Download Build Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: nextjs-build
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GH_TOKEN }}
-        publish_dir: ./out
-        keep_files: false
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+              
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: nextjs-build
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./out
+          keep_files: false
