@@ -6,7 +6,7 @@ export default function Featured () {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>
-        <b>Hey John Doe Here!</b> Discover my stories and creative ideas
+        <b>Hey John Doe Here!</b> Discover my stories and creative ideas {process.env.NODE_ENV}
       </h1>
       <div className={styles.post}>
         <div className={styles.imageContainer}>
