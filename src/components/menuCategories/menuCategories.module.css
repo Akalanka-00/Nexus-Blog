@@ -1,13 +1,17 @@
 .categoryList{
     margin-top: 35px;
-    margin-bottom: 60px;display: flex;
+    margin-bottom: 60px;
+    display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
 
 .categoryItem{
+    flex: 1;
     padding: 10px 25px;
     border-radius: 10px;
     font-size: 14px;
-    
+    text-align: center;
+    box-sizing: border-box;
+
 }
