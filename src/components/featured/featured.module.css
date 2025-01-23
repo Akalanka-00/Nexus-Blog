@@ -12,16 +12,21 @@
     display: flex;
     align-items: center;
     gap: 50px;
+    flex-direction: row;
 }
 
 .imageContainer{
  flex:1;   
- height: 500px;
+ height: 100%;
  position: relative;
+ width: 100%;
+ aspect-ratio: 16 / 9;
 }
 
 .image{
     object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
 .textContainer{
@@ -46,4 +51,46 @@
     border: none;
     border-radius: 5px;
     width: max-content;
+}
+
+
+@media screen and (max-width:1280px) {
+    .title{
+        font-size: 72px;
+    }
+    
+}
+
+@media screen and (max-width:1024px) {
+    .title{
+        font-size: 64px;
+    }
+
+    .post {
+        flex-direction: column; /* Stack items vertically */
+        gap: 30px; /* Space between the image and text */
+    }
+
+    .imageContainer {
+        height: 300px; /* Set a specific height for the image container */
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .textContainer {
+        width: 100%; /* Ensure the text takes up full width */
+    }
+}
+
+@media screen and (max-width:768px) {
+    .title{
+        font-size: 48px;
+    }
+}
+
+@media screen and (max-width:640px) {
+    .title{
+        font-size: 36px;
+    }
+
+
 }
