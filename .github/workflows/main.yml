@@ -30,36 +30,27 @@ jobs:
     - name: Build Project
       run: npm run build
 
-    - name: List all files (optional)
-      run: ls -R ./out  # Lists files in the output folder after build
-
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: nextjs-build
-        path: ./out # Replace with your build directory
-        retention-days: 14
 
   deploy:
-    needs: build
     runs-on: ubuntu-22.04
-            
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
-      
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          name: nextjs-build
-      
-      - name: List all files (optional)
-        run: ls -R ./  # Lists files in the output folder after build
-      
+          node-version: '16'  # Set the Node.js version you need
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js app
+        run: npm run build
+
       - name: Deploy to Render
         env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Add your Render API key as a GitHub Secret
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}  # Add your Render service ID as a GitHub Secret
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Add your Render API Key as a GitHub Secret
         run: |
           curl -X POST https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
             -H "Authorization: Bearer $RENDER_API_KEY" \
