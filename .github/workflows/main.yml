@@ -30,7 +30,6 @@ jobs:
     - name: Build Project
       run: npm run build
 
-
   deploy:
     runs-on: ubuntu-22.04
     steps:
@@ -51,8 +50,17 @@ jobs:
       - name: Deploy to Render
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Add your Render API Key as a GitHub Secret
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}  # Add your Render Service ID as a GitHub Secret
+          BRANCH_NAME: ${{ github.ref }}  # Automatically set to the branch that triggered the workflow
         run: |
+          # Extract the branch name from the ref (e.g., refs/heads/branch-name -> branch-name)
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+
+          # Trigger Render deployment for the current branch
           curl -X POST https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
             -H "Authorization: Bearer $RENDER_API_KEY" \
             -H "Content-Type: application/json" \
-            -d '{}'
+            -d '{
+              "branch": "'"$BRANCH_NAME"'"
+            }'
+
