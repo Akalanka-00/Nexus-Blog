@@ -34,7 +34,7 @@ a {
 
 .light {
   --bg: white;
-  --textColor: black;
+  --textColor: red;
   --softBg: #f0f0f0;
   --softTextColor: #626262;
 }

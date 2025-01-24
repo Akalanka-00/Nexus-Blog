@@ -43,11 +43,11 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-22.04
-      
+            
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-              
+      
       - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
@@ -55,11 +55,13 @@ jobs:
       
       - name: List all files (optional)
         run: ls -R ./  # Lists files in the output folder after build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./ # Ensure this matches your build output directory
-          publish_branch: gh-pages
-          keep_files: false
+      
+      - name: Deploy to Render
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Add your Render API key as a GitHub Secret
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}  # Add your Render service ID as a GitHub Secret
+        run: |
+          curl -X POST https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{}'
