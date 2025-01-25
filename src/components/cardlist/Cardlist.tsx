@@ -6,7 +6,7 @@ import Card from '../card/Card'
 
 
 const getData =async (page: number, category: string) => {
-  const res = await fetch(`http://localhost:3000/api/posts?page=${page}&cat=${category || ""}`,{
+  const res = await fetch(`http://localhost:3000/api/posts?page=${page}&cat=${category}`,{
     cache:"no-cache",
   });
 
@@ -17,9 +17,9 @@ const getData =async (page: number, category: string) => {
   return data;
 };
 
-const CardList =async ({page, category}: {page: number, category: string}) => {
+const CardList =async ({page, category}: {page: number, category?: string}) => {
 
-  const {posts, count} = await getData(page, category);
+  const {posts, count} = await getData(page, category || "");
   const POST_PER_PAGE = 2;
   const hasPrev = POST_PER_PAGE* (page-1) >0;
   const hasNext = POST_PER_PAGE* (page-1) + POST_PER_PAGE < count;
