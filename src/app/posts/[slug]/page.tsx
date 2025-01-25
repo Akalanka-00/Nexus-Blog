@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React from 'react'
 import styles from "./singlePage.module.css"
@@ -19,7 +20,7 @@ const getData =async (slug: string) => {
   return data;
 };
 
-const SinglePage = async ({ params }) => {
+const SinglePage = async ({ params }: {params:any}) => {
 
   
   const { slug } =await params;

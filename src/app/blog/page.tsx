@@ -4,7 +4,7 @@ import styles from "./blogPage.module.css"
 import CardList from '@/components/cardlist/Cardlist'
 import Menu from '@/components/menu/Menu'
 
-const BlogPage = ({ searchParams }) => {
+const BlogPage = ({ searchParams }: {searchParams: any}) => {
 
   const page =1 //parseInt(searchParams.get("page") || "1");
   const {cat} = searchParams;

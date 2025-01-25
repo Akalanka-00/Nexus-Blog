@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/utils/connect";
 
 //GET Single POST
-export const GET = async (req: NextRequest, { params }) => {
+export const GET = async (req: NextRequest, { params }: {params:any}) => {
     const { slug } =await params;
   
     try {
