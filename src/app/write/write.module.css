@@ -63,9 +63,9 @@
   }
   
   .publish{
-    position: absolute;
-    top: 0px;
-    right: 0px;
+    position: fixed;
+    top: 30px;
+    right: 30px;
     padding: 10px 20px;
     border: none;
     background-color: #1a8917;
