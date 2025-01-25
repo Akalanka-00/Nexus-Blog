@@ -6,15 +6,15 @@ import Featured from "@/components/featured/Featured";
 import Menu from "@/components/menu/Menu";
 
 
-export default function Home({searchParams}: { searchParams: any }) {
+export default async function Home({searchParams}: { searchParams: any }) {
 
-  const page = parseInt(searchParams.page) || 1;
+  const page = parseInt((await searchParams).page) || 1;
   return (
     <div className={styles.container}>
       <Featured/>
       <CategoryList/>
       <div className={styles.content}>
-        <CardList page={page} category=""/>
+        <CardList page={page}/>
         <Menu/>
       </div>
     </div>
