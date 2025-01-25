@@ -1,0 +1,75 @@
+[
+    {
+      "_id": { "$oid": "790482c4bce4c559d291b6d1" },
+      "createdAt": { "$date": "2025-01-25T12:00:00Z" },
+      "slug": "latest-in-style",
+      "title": "The Latest in Style",
+      "desc": "Explore the latest trends and timeless fashion tips in the style world.",
+      "img": "/images/post-style.png",
+      "views": 124,
+      "catSlug": "style",
+      "userEmail": "user1@example.com",
+      "comments": []
+    },
+    {
+      "_id": { "$oid": "790482c4bce4c559d291b6d2" },
+      "createdAt": { "$date": "2025-01-25T12:30:00Z" },
+      "slug": "fashion-forward",
+      "title": "Fashion Forward",
+      "desc": "Dive into the world of high fashion and everyday wear inspirations.",
+      "img": "/images/post-fashion.png",
+      "views": 98,
+      "catSlug": "fashion",
+      "userEmail": "user2@example.com",
+      "comments": []
+    },
+    {
+      "_id": { "$oid": "790482c4bce4c559d291b6d3" },
+      "createdAt": { "$date": "2025-01-25T13:00:00Z" },
+      "slug": "food-lovers-delight",
+      "title": "Food Lover's Delight",
+      "desc": "Savor recipes, restaurant reviews, and culinary adventures.",
+      "img": "/images/post-food.png",
+      "views": 200,
+      "catSlug": "food",
+      "userEmail": "user3@example.com",
+      "comments": []
+    },
+    {
+      "_id": { "$oid": "790482c4bce4c559d291b6d4" },
+      "createdAt": { "$date": "2025-01-25T13:30:00Z" },
+      "slug": "travel-tales",
+      "title": "Travel Tales",
+      "desc": "Journey across the globe with our travel guides and stories.",
+      "img": "/images/post-travel.png",
+      "views": 176,
+      "catSlug": "travel",
+      "userEmail": "user4@example.com",
+      "comments": []
+    },
+    {
+      "_id": { "$oid": "790482c4bce4c559d291b6d5" },
+      "createdAt": { "$date": "2025-01-25T14:00:00Z" },
+      "slug": "culture-and-traditions",
+      "title": "Culture and Traditions",
+      "desc": "Understand diverse cultures and their beautiful traditions.",
+      "img": "/images/post-culture.png",
+      "views": 150,
+      "catSlug": "culture",
+      "userEmail": "user5@example.com",
+      "comments": []
+    },
+    {
+      "_id": { "$oid": "790482c4bce4c559d291b6d6" },
+      "createdAt": { "$date": "2025-01-25T14:30:00Z" },
+      "slug": "coding-tutorials",
+      "title": "Coding Tutorials",
+      "desc": "Step into the world of programming with our in-depth tutorials.",
+      "img": "/images/post-coding.png",
+      "views": 250,
+      "catSlug": "coding",
+      "userEmail": "user6@example.com",
+      "comments": []
+    }
+  ]
+  
