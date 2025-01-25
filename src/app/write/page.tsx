@@ -1,20 +1,36 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./write.module.css"
 import Image from 'next/image'
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 
 const WritePage = () => {
 
+  const {  status } = useSession();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+  
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+  
+  if (status === "loading") {
+    return <div className={styles.loading}>Loading...</div>;
+  }
+
+
+
     const handleSubmit = async () => {
-        console.log("submit");
       };
 
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("");
   return (
     <div className={styles.container}>
         <input className={styles.input} type='text' placeholder='Title'/>
