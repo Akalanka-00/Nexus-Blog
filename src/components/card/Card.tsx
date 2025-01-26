@@ -1,29 +1,39 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image"
 import styles from "./card.module.css"
+import { convert } from 'html-to-text';
 
 import React from 'react'
-import { ImageLoader } from "@/utils/ImageLoader"
 import Link from "next/link"
 
-const Card = () => {
+const Card = ({ post, key}:{post:any, key:any}) => {
+
+  const descSize = 150;
+  const getPlainText = (html: string) => {
+    const text =  convert(html, {
+      wordwrap: false, // Keeps the string unwrapped
+      selectors: [{ selector: 'img', format: 'skip' }], // Skips images, if any
+    });
+    return text;
+  };
+
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} key={key}>
         <div className={styles.imageContainer}>
-            <Image src={ImageLoader("/images/p1.jpeg")} alt="post" className={styles.image} fill/>
+            <Image src={post.img} alt="post" className={styles.image} fill/>
         </div>
         <div className={styles.textContainer}>
         <div className={styles.detail}>
-            <span className={styles.date}>12th June 2021 - </span>
-            <span className={styles.category}>Style</span>
+            <span className={styles.date}>{post.createdAt.substring(0,10)} - </span>
+            <span className={styles.category}>{post.catSlug}</span>
             </div>    
-            <Link href="/">
-            <h1 className={styles.title}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, nesciunt.</h1> 
+            <Link href={`/posts/${post.slug}`}>
+            <h1 className={styles.title}>{post.title}</h1> 
             </Link>
-            <p className={styles.desc}> Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia inventore quod eum vitae quas non cum alias 
-                
-                </p>       
+            <p className={styles.desc}> {getPlainText(post.desc).substring(0,descSize)}{getPlainText(post.desc).length>descSize && "..."}</p>       
 
-            <Link href="/post/1" className={styles.link}>Read More</Link>
+            <Link href={`/posts/${post.slug}`} className={styles.link}>Read More</Link>
         </div>
 
     </div>

@@ -3,7 +3,6 @@ import Link from 'next/link'
 import React from 'react'
 import styles from "./menuPosts.module.css"
 import Image from 'next/image'
-import { ImageLoader } from '@/utils/ImageLoader'
 import categoryList from '@/data/CategoryData'
 
 const MenuPosts = ({ withImage }: { withImage: boolean }) => {
@@ -13,7 +12,7 @@ const MenuPosts = ({ withImage }: { withImage: boolean }) => {
 
           <Link href={menu.link} className={styles.item} key={index}>
           {withImage && <div className={styles.imageContainer}>
-            <Image src={ImageLoader(menu.image)} alt="" fill className={styles.image} />
+            <Image src={menu.image} alt="" fill className={styles.image} />
           </div>}
           <div className={styles.textContainer}>
             <span className={styles.category} 

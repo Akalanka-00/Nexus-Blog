@@ -1,15 +1,14 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === 'production';
 
 const nextConfig: NextConfig = {
-   //output: 'export',
-  trailingSlash: true,
-  images: {
-    unoptimized: true,
-  },
-  basePath: isProd ? '/Nexus-Blog' : '',
-  assetPrefix: isProd ? '/Nexus-Blog' : '',
+  images:{
+    remotePatterns: [
+      { protocol: 'https', hostname: 'nexus-blog-hjlt.onrender.com' },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
+      { protocol: 'https', hostname: 'firebasestorage.googleapis.com' }
+    ]
+  }
 };
 
 export default nextConfig;

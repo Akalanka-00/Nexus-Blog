@@ -5,6 +5,7 @@ import Footer from "@/components/footer/Footer";
 import { ThemeContextProvider } from "@/context/ThemeContext";
 import ThemeProvider from "@/providers/ThemeProvider";
 import { Metadata } from "next";
+import AuthProvider from "@/providers/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <AuthProvider> */}
-          <ThemeContextProvider>
+        <AuthProvider>
+        <ThemeContextProvider>
             <ThemeProvider>
               <div className="container">
                 <div className="wrapper">
@@ -33,7 +34,7 @@ export default function RootLayout({
               </div>
             </ThemeProvider>
           </ThemeContextProvider>
-        {/* </AuthProvider> */}
+        </AuthProvider>
       </body>
     </html>
   );

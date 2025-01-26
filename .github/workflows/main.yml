@@ -30,36 +30,37 @@ jobs:
     - name: Build Project
       run: npm run build
 
-    - name: List all files (optional)
-      run: ls -R ./out  # Lists files in the output folder after build
-
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: nextjs-build
-        path: ./out # Replace with your build directory
-        retention-days: 14
-
   deploy:
-    needs: build
     runs-on: ubuntu-22.04
-      
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
-              
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: nextjs-build
-      
-      - name: List all files (optional)
-        run: ls -R ./  # Lists files in the output folder after build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./ # Ensure this matches your build output directory
-          publish_branch: gh-pages
-          keep_files: false
+          node-version: '20'  # Set the Node.js version you need
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Deploy to Render
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Add your Render API Key as a GitHub Secret
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}  # Add your Render Service ID as a GitHub Secret
+          BRANCH_NAME: ${{ github.ref }}  # Automatically set to the branch that triggered the workflow
+        run: |
+          # Extract the branch name from the ref (e.g., refs/heads/branch-name -> branch-name)
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+
+          # Trigger Render deployment for the current branch
+          curl -X POST https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "branch": "'"$BRANCH_NAME"'"
+            }'
+
