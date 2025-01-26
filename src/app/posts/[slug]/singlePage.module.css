@@ -47,6 +47,10 @@
     height: 350px;
     position: relative;
   }
+
+  .featureImage{
+    border-radius: 5px;
+  }
   
   .image {
     object-fit: cover;
@@ -62,10 +66,11 @@
     margin-top: 60px;
   }
   
-  .description p {
-    font-size: 20px;
+  .description {
     font-weight: 300;
     margin-bottom: 20px;
+    background-color: transparent !important; /* Override inline styles */
+    color: var(--textColor);
   }
   
   @media screen and (max-width: 1536px) {

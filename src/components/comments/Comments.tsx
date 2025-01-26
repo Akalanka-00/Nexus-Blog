@@ -28,7 +28,6 @@ const Comments = ({ postSlug }: { postSlug: any }) => {
     fetcher
   );
 
-  console.log({data});
   const handleSubmit = async () => {
     await fetch("/api/comments", {
       method:"POST",
