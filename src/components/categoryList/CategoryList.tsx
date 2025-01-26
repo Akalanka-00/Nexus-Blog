@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Category } from "@/modals/category.modal";
 
 const getData =async () => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/categories`,{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/categories`,{
     cache:"no-cache",
   });
 

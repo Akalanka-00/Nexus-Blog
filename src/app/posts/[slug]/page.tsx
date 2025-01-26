@@ -8,7 +8,7 @@ import Comments from '@/components/comments/Comments';
 
 
 const getData =async (slug: string) => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${slug}`,{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts/${slug}`,{
     cache:"no-cache",
   });
 

@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
+import dotenv from "dotenv";
 
-
+// Load environment variables from the .env file
+dotenv.config();
 const nextConfig: NextConfig = {
   images:{
     remotePatterns: [
