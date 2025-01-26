@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./comments.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,13 +22,19 @@ const fetcher = async (url: string) => {
 
 const Comments = ({ postSlug }: { postSlug: any }) => {
   const { status } = useSession();
-  const { data, isLoading } = useSWR(
+  const [desc, setDesc] = useState("");
+  const { data, mutate, isLoading } = useSWR(
    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
-  console.log({postSlug});
-  const handleSubmit = async () => {};
+  const handleSubmit = async () => {
+    await fetch("/api/comments", {
+      method:"POST",
+      body:JSON.stringify({desc, postSlug}),
+    });
+    mutate();
+  };
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Comments</h1>
@@ -37,7 +43,7 @@ const Comments = ({ postSlug }: { postSlug: any }) => {
           <textarea
             placeholder="write a comment..."
             className={styles.input}
-            onChange={() => {}}
+            onChange={(e) => {setDesc(e.target.value)}}
           />
           <button className={styles.button} onClick={handleSubmit}>
             Send
@@ -50,7 +56,7 @@ const Comments = ({ postSlug }: { postSlug: any }) => {
         {isLoading
           ? "loading"
           : data?.map((comment: any) => (
-              <div className={styles.comment} key={comment._id}>
+              <div className={styles.comment} key={comment.id}>
                 <div className={styles.user}>
                   <Image
                     src={comment.user.image}

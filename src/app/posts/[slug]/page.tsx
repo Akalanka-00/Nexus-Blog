@@ -4,7 +4,6 @@ import React from 'react'
 import styles from "./singlePage.module.css"
 import Menu from '@/components/menu/Menu';
 import Image from 'next/image';
-import { ImageLoader } from '@/utils/ImageLoader';
 import Comments from '@/components/comments/Comments';
 
 
@@ -42,7 +41,7 @@ const SinglePage = async ({ params }: {params:any}) => {
                 </div>
               </div>
               <div className={styles.imageContainer}>
-                <Image src={ImageLoader("/images/p1.jpeg")} alt='' fill/>
+                <Image src={data.img} className={`${styles.image} ${styles.featureImage}`} alt='' fill/>
               </div>
             </div>
             <div className={styles.content}>

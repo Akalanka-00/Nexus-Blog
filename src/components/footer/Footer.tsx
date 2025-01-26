@@ -2,14 +2,13 @@ import React from "react";
 import styles from "./footer.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { ImageLoader } from "@/utils/ImageLoader";
 
 const Footer = () => {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
         <div className={styles.logo}>
-          <Image src={ImageLoader("/images/logo.png")} alt="Nexus blog" width={50} height={50} />
+          <Image src={"/images/logo.png"} alt="Nexus blog" width={50} height={50} />
           <h1 className={styles.logoText}>Nexus Blog</h1>
         </div>
         <p className={styles.desc}>
@@ -19,10 +18,10 @@ const Footer = () => {
           repellendus dorales.
         </p>
         <div className={styles.icons}>
-          <Image src= {ImageLoader("/icons/facebook.png")} alt="" width={18} height={18} />
-          <Image src= {ImageLoader("/icons/instagram.png")} alt="" width={18} height={18} />
-          <Image src= {ImageLoader("/icons/tiktok.png")} alt="" width={18} height={18} />
-          <Image src= {ImageLoader("/icons/youtube.png")} alt="" width={18} height={18} />
+          <Image src= {"/icons/facebook.png"} alt="" width={18} height={18} />
+          <Image src= {"/icons/instagram.png"} alt="" width={18} height={18} />
+          <Image src= {"/icons/tiktok.png"} alt="" width={18} height={18} />
+          <Image src= {"/icons/youtube.png"} alt="" width={18} height={18} />
         </div>
       </div>
       <div className={styles.links}>
